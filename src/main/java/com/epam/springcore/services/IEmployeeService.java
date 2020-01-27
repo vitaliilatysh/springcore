@@ -6,6 +6,6 @@ public interface IEmployeeService {
 
     Employee create(Employee employee);
 
-    Employee update(Employee department);
+    Employee update(Employee employee);
 
 }
