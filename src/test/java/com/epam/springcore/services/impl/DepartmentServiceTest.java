@@ -74,9 +74,7 @@ public class DepartmentServiceTest {
         departmentService.create(newDepartment);
         employeeService.create(employee);
 
-        departmentService.assignToDepartment(employee, "1");
-
-        assertFalse(departmentService.assignToDepartment(employee, "1"));
+        assertFalse(departmentService.assignToDepartment(employee, "3"));
     }
 
     @Test
