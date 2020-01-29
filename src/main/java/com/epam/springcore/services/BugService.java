@@ -13,11 +13,24 @@ public class BugService implements IBaseService<Bug> {
 
     @Override
     public Bug create(Bug entity) {
-        return store.getBugMap().put(entity.getId(), entity);
+        Bug foundBug = store.getBugMap().get(entity.getId());
+        if (foundBug == null){
+            return null;
+        }
+        foundBug.setId(entity.getId());
+        foundBug.setDescription(entity.getDescription());
+        foundBug.setUserId(entity.getUserId());
+        return store.getBugMap().put(foundBug.getId(), foundBug);
     }
 
     @Override
     public Bug update(Bug entity) {
-        return store.getBugMap().get(entity.getId());
+        Bug foundBug = store.getBugMap().get(entity.getId());
+        if (foundBug == null) {
+            return null;
+        }
+        foundBug.setDescription(foundBug.getDescription());
+        foundBug.setUserId(foundBug.getUserId());
+        return store.getBugMap().put(foundBug.getId(), foundBug);
     }
 }
