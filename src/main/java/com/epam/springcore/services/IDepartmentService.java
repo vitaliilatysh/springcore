@@ -11,7 +11,7 @@ public interface IDepartmentService {
 
     Department update(Department department);
 
-    boolean assignToDepartment(Employee employee, Department department);
+    boolean assignToDepartment(Employee employee, String departmentId);
 
-    List<Employee> getAllEmployees();
+    List<Employee> getAllEmployees(String departmentId);
 }
