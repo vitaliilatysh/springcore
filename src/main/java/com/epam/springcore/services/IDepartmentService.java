@@ -5,11 +5,7 @@ import com.epam.springcore.entities.Employee;
 
 import java.util.List;
 
-public interface IDepartmentService {
-
-    Department create(Department department);
-
-    Department update(Department department);
+public interface IDepartmentService extends IBaseService<Department>{
 
     boolean assignToDepartment(Employee employee, String departmentId);
 

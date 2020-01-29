@@ -17,10 +17,12 @@ public class DepartmentService implements IDepartmentService {
         this.store = Store.getStoreInstance();
     }
 
+    @Override
     public Department create(Department department) {
         return store.getDepartmentMap().put(department.getId(), department);
     }
 
+    @Override
     public Department update(Department department) {
         return store.getDepartmentMap().get(department.getId());
     }

@@ -1,5 +1,6 @@
 package com.epam.springcore.storage;
 
+import com.epam.springcore.entities.Bug;
 import com.epam.springcore.entities.Department;
 import com.epam.springcore.entities.Employee;
 
@@ -11,9 +12,12 @@ public class Store {
     private Map<String, Employee> employeeMap;
     private Map<String, Department> departmentMap;
 
+    private Map<String, Bug> bugMap;
+
     private Store() {
         this.employeeMap = new HashMap<>();
         this.departmentMap = new HashMap<>();
+        this.bugMap = new HashMap<>();
     }
 
     public static Store getStoreInstance(){
@@ -35,6 +39,7 @@ public class Store {
         return departmentMap;
     }
 
-
-
+    public Map<String, Bug> getBugMap() {
+        return bugMap;
+    }
 }
