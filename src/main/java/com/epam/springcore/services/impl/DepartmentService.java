@@ -20,7 +20,7 @@ public class DepartmentService implements IDepartmentService {
     @Override
     public Department create(Department department) {
         Department foundDep = store.getDepartmentMap().get(department.getId());
-        if (foundDep == null){
+        if (foundDep == null) {
             store.getDepartmentMap().put(department.getId(), department);
             return store.getDepartmentMap().get(department.getId());
         }
@@ -30,7 +30,7 @@ public class DepartmentService implements IDepartmentService {
     @Override
     public Department update(Department department) {
         Department foundDep = store.getDepartmentMap().get(department.getId());
-        if (foundDep == null){
+        if (foundDep == null) {
             return null;
         }
         foundDep.setName(department.getName());
@@ -39,7 +39,7 @@ public class DepartmentService implements IDepartmentService {
 
     public boolean assignToDepartment(Employee employee, String departmentId) {
         Department department = store.getDepartmentMap().get(departmentId);
-        if(department == null){
+        if (department == null) {
             return false;
         }
 

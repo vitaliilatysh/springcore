@@ -14,7 +14,7 @@ public class BugService implements IBaseService<Bug> {
     @Override
     public Bug create(Bug entity) {
         Bug foundBug = store.getBugMap().get(entity.getId());
-        if (foundBug == null){
+        if (foundBug == null) {
             return null;
         }
         foundBug.setId(entity.getId());

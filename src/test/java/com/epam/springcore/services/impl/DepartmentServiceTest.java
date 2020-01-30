@@ -3,7 +3,6 @@ package com.epam.springcore.services.impl;
 import com.epam.springcore.entities.Department;
 import com.epam.springcore.entities.Employee;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -19,7 +18,7 @@ public class DepartmentServiceTest {
     private EmployeeService employeeService;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         departmentService = new DepartmentService();
         employeeService = new EmployeeService();
     }
@@ -54,6 +53,14 @@ public class DepartmentServiceTest {
     }
 
     @Test
+    public void shouldReturnNullIfNoDepFound() {
+        Department updateDepartment = new Department("3", "DevOps Solutions");
+        Department updatedDep = departmentService.update(updateDepartment);
+
+        assertNull(updatedDep);
+    }
+
+    @Test
     public void shouldAssignEmployeeToDep() {
         Employee employee = new Employee("123", "David", null);
         Department newDepartment = new Department("1", "Java Solutions");
@@ -78,7 +85,17 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void getAllEmployees() {
+    public void shouldNotAssignNotExistedEmployeeToDep() {
+        Employee employee = new Employee("123", "David", null);
+        Department newDepartment = new Department("2", "Java Solutions");
+
+        departmentService.create(newDepartment);
+
+        assertFalse(departmentService.assignToDepartment(employee, "2"));
+    }
+
+    @Test
+    public void shouldReturnAllEmployeesOfSpecifiedDepId() {
         Employee employee1 = new Employee("123", "David", "1");
         Employee employee2 = new Employee("124", "Michel", "1");
         Employee employee3 = new Employee("125", "Piter", "2");
@@ -90,5 +107,19 @@ public class DepartmentServiceTest {
         List<Employee> employeeList = departmentService.getAllEmployees("1");
 
         assertEquals(employeeList.size(), 2);
+    }
+
+    @Test
+    public void shouldReturnEmptyListAllEmployeesIfSpecifiedNotExistedDepId() {
+        List<Employee> employeeList = departmentService.getAllEmployees("3");
+
+        assertEquals(employeeList.size(), 0);
+    }
+
+    @Test
+    public void shouldReturnEmptyListAllEmployeesIfSpecifiedNullAsId() {
+        List<Employee> employeeList = departmentService.getAllEmployees(null);
+
+        assertEquals(employeeList.size(), 0);
     }
 }
