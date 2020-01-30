@@ -62,23 +62,19 @@ public class DepartmentServiceTest {
 
     @Test
     public void shouldAssignEmployeeToDep() {
-        Employee employee = new Employee("123", "David", null);
+        Employee employee = new Employee("123", "David");
         Department newDepartment = new Department("1", "Java Solutions");
 
         departmentService.create(newDepartment);
         employeeService.create(employee);
-
-        departmentService.assignToDepartment(employee, "1");
 
         assertTrue(departmentService.assignToDepartment(employee, "1"));
     }
 
     @Test
     public void shouldNotAssignEmployeeToNotExistedDep() {
-        Employee employee = new Employee("123", "David", null);
-        Department newDepartment = new Department("2", "Java Solutions");
+        Employee employee = new Employee("123", "David");
 
-        departmentService.create(newDepartment);
         employeeService.create(employee);
 
         assertFalse(departmentService.assignToDepartment(employee, "3"));
@@ -86,7 +82,7 @@ public class DepartmentServiceTest {
 
     @Test
     public void shouldNotAssignNotExistedEmployeeToDep() {
-        Employee employee = new Employee("123", "David", null);
+        Employee employee = new Employee("124", "David");
         Department newDepartment = new Department("2", "Java Solutions");
 
         departmentService.create(newDepartment);
@@ -96,15 +92,21 @@ public class DepartmentServiceTest {
 
     @Test
     public void shouldReturnAllEmployeesOfSpecifiedDepId() {
-        Employee employee1 = new Employee("123", "David", "1");
-        Employee employee2 = new Employee("124", "Michel", "1");
-        Employee employee3 = new Employee("125", "Piter", "2");
+        Employee employee1 = new Employee("123", "David");
+        Employee employee2 = new Employee("124", "Michel");
+        Employee employee3 = new Employee("125", "Piter");
+
+        Department newDepartment = new Department("1", "Java Solutions");
+        Department department = departmentService.create(newDepartment);
 
         employeeService.create(employee1);
         employeeService.create(employee2);
         employeeService.create(employee3);
 
-        List<Employee> employeeList = departmentService.getAllEmployees("1");
+        departmentService.assignToDepartment(employee1, department.getId());
+        departmentService.assignToDepartment(employee2, department.getId());
+
+        List<Employee> employeeList = departmentService.getAllEmployees(department.getId());
 
         assertEquals(employeeList.size(), 2);
     }
