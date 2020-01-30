@@ -1,9 +1,10 @@
-package com.epam.springcore.services;
+package com.epam.springcore.services.impl;
 
 import com.epam.springcore.entities.Bug;
+import com.epam.springcore.services.IBugService;
 import com.epam.springcore.storage.Store;
 
-public class BugService implements IBaseService<Bug> {
+public class BugService implements IBugService {
 
     private Store store;
 
@@ -20,7 +21,7 @@ public class BugService implements IBaseService<Bug> {
         foundBug.setId(entity.getId());
         foundBug.setDescription(entity.getDescription());
         foundBug.setUserId(entity.getUserId());
-        return store.getBugMap().put(foundBug.getId(), foundBug);
+        return foundBug;
     }
 
     @Override
@@ -31,6 +32,6 @@ public class BugService implements IBaseService<Bug> {
         }
         foundBug.setDescription(foundBug.getDescription());
         foundBug.setUserId(foundBug.getUserId());
-        return store.getBugMap().put(foundBug.getId(), foundBug);
+        return foundBug;
     }
 }
