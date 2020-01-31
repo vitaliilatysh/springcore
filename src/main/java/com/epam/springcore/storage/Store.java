@@ -20,10 +20,10 @@ public class Store {
         this.bugMap = new HashMap<>();
     }
 
-    public static Store getStoreInstance(){
-        if(instance == null){
-            synchronized (Store.class){
-                if(instance == null){
+    public static Store getStoreInstance() {
+        if (instance == null) {
+            synchronized (Store.class) {
+                if (instance == null) {
                     instance = new Store();
                 }
             }

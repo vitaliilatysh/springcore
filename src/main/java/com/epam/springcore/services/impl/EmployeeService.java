@@ -14,11 +14,21 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public Employee create(Employee employee) {
-        return store.getEmployeeMap().put(employee.getId(), employee);
+        Employee foundEmployee = store.getEmployeeMap().get(employee.getId());
+        if (foundEmployee == null) {
+            store.getEmployeeMap().put(employee.getId(), employee);
+            return store.getEmployeeMap().get(employee.getId());
+        }
+        return foundEmployee;
     }
 
     @Override
     public Employee update(Employee employee) {
-        return store.getEmployeeMap().get(employee.getId());
+        Employee foundEmployee = store.getEmployeeMap().get(employee.getId());
+        if (foundEmployee == null) {
+            return null;
+        }
+        foundEmployee.setName(employee.getName());
+        return foundEmployee;
     }
 }
