@@ -19,18 +19,33 @@ public class DepartmentService implements IDepartmentService {
 
     @Override
     public Department create(Department department) {
-        return store.getDepartmentMap().put(department.getId(), department);
+        Department foundDep = store.getDepartmentMap().get(department.getId());
+        if (foundDep == null) {
+            store.getDepartmentMap().put(department.getId(), department);
+            return store.getDepartmentMap().get(department.getId());
+        }
+        return foundDep;
     }
 
     @Override
     public Department update(Department department) {
-        return store.getDepartmentMap().get(department.getId());
+        Department foundDep = store.getDepartmentMap().get(department.getId());
+        if (foundDep == null) {
+            return null;
+        }
+        foundDep.setName(department.getName());
+        return foundDep;
     }
 
     public boolean assignToDepartment(Employee employee, String departmentId) {
+        Department department = store.getDepartmentMap().get(departmentId);
+        if (department == null) {
+            return false;
+        }
+
         Employee foundEmployee = store.getEmployeeMap().get(employee.getId());
         if (foundEmployee != null) {
-            foundEmployee.setDepartmentId(departmentId);
+            foundEmployee.setDepartmentId(department.getId());
             return true;
         }
         return false;
